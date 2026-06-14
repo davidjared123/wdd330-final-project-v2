@@ -332,6 +332,7 @@ input[type="text"]:user-invalid {
 
 input[type="range"] {
   -webkit-appearance: none;
+  appearance: none; /* Propiedad estándar para compatibilidad cruzada */
   width: 100%;
   height: 6px;
   border-radius: 3px;
@@ -341,6 +342,7 @@ input[type="range"] {
   
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
+    appearance: none; /* Propiedad estándar para compatibilidad cruzada */
     width: 20px;
     height: 20px;
     border-radius: 50%;
