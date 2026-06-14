@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Localizador - Configurar Búsqueda</title>
+  <!-- Link a la hoja de estilos global -->
+  <!-- Fuentes modernas de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/wdd330-final-project-v2/assets/main-Bp5lxzfq.js"></script>
+  <link rel="stylesheet" crossorigin href="/wdd330-final-project-v2/assets/main-DZn99vsM.css">
+</head>
+<body class="search-page">
+  <div class="glass-bg"></div>
+  
+  <header class="app-header">
+    <div class="logo">
+      <span class="logo-icon">🧭</span>
+      <h1>El Localizador</h1>
+    </div>
+    <p class="tagline">Local Travel & Eco-Tourism Compass</p>
+  </header>
+
+  <main class="main-container">
+    <!-- Contenedor del formulario con Glassmorphism -->
+    <section class="card form-card">
+      <h2 class="card-title">Configurar Búsqueda</h2>
+      <p class="card-subtitle">Encuentra reservas naturales, monumentos históricos y atracciones turísticas a tu alrededor.</p>
+      
+      <!-- novalidate desactiva los diálogos nativos del navegador -->
+      <form id="search-form" novalidate autocomplete="off">
+        
+        <!-- Campo de texto para la ciudad/destino -->
+        <div class="form-group field">
+          <label for="destination">Ciudad o Destino</label>
+          <span id="destination-hint" class="hint">Escribe una ciudad (mínimo 3 caracteres). Ejemplo: Cusco, Santiago.</span>
+          <div class="input-wrapper">
+            <span class="input-icon">🔍</span>
+            <input 
+              type="text" 
+              id="destination" 
+              name="destination" 
+              required 
+              minlength="3" 
+              placeholder="Ej. San Carlos de Bariloche"
+              aria-describedby="destination-hint"
+              aria-errormessage="destination-error"
+            >
+          </div>
+          <!-- Contenedor del mensaje de error customizado -->
+          <div id="destination-error" class="error-msg" aria-live="polite">
+            <span class="error-icon" aria-hidden="true">⚠️</span>
+            <span class="error-text"></span>
+          </div>
+        </div>
+
+        <!-- Botón para geolocalización satelital -->
+        <div class="form-group geo-container">
+          <div class="divider"><span>O TAMBIÉN</span></div>
+          <button type="button" id="geo-btn" class="btn btn-secondary">
+            <span class="btn-icon">📍</span>
+            Usar mi Ubicación GPS
+          </button>
+          <p id="geo-status" class="status-msg" aria-live="polite"></p>
+        </div>
+
+        <!-- Slider para el radio de búsqueda (rango) -->
+        <div class="form-group">
+          <div class="slider-header">
+            <label for="radius">Radio de Búsqueda</label>
+            <span id="radius-value" class="slider-value">25 km</span>
+          </div>
+          <input 
+            type="range" 
+            id="radius" 
+            name="radius" 
+            min="5" 
+            max="100" 
+            value="25" 
+            step="5"
+          >
+          <div class="slider-labels">
+            <span>5 km</span>
+            <span>50 km</span>
+            <span>100 km</span>
+          </div>
+        </div>
+
+        <!-- Contenedor de alertas globales del formulario -->
+        <div id="form-alert" class="alert-box" style="display: none;" role="alert">
+          <span class="alert-icon">❌</span>
+          <p class="alert-text"></p>
+        </div>
+
+        <!-- Botón de envío -->
+        <button type="submit" class="btn btn-primary" id="submit-btn">
+          <span>Explorar Destino</span>
+          <span class="btn-arrow">➔</span>
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <nav class="nav-bar">
+      <a href="input.html" class="nav-item active">
+        <span class="nav-icon">🔍</span>
+        <span class="nav-label">Buscar</span>
+      </a>
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon">💚</span>
+        <span class="nav-label">Explorar</span>
+      </a>
+    </nav>
+  </footer>
+
+  <!-- Script modular de JS -->
+</body>
+</html>
