@@ -20,13 +20,13 @@ function translateKinds(kinds) {
   
   const kindsLower = kinds.toLowerCase();
   
-  if (kindsLower.includes('nature_reserves')) {
+  if (kindsLower.includes('nature_reserves') || kindsLower.includes('natural') || kindsLower.includes('park')) {
     return 'Reserva Natural 🌿';
   }
-  if (kindsLower.includes('historical_places') || kindsLower.includes('historic')) {
+  if (kindsLower.includes('historical_places') || kindsLower.includes('historic') || kindsLower.includes('heritage')) {
     return 'Sitio Histórico 🏛️';
   }
-  if (kindsLower.includes('tourist_object') || kindsLower.includes('monuments')) {
+  if (kindsLower.includes('tourist_object') || kindsLower.includes('monuments') || kindsLower.includes('tourism')) {
     return 'Atracción Turística 🧭';
   }
   
