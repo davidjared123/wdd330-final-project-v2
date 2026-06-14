@@ -1,0 +1,733 @@
+/* ==========================================================================
+   🎨 SISTEMA DE DISEÑO & VARIABLES (Curso WDD 330: Diseño Responsivo y Moderno)
+   ========================================================================== */
+:root {
+  /* Paleta Cromática Basada en la Naturaleza */
+  --color-primary: #1b4d3e;        /* Verde Bosque Profundo */
+  --color-primary-light: #2e6f5a;  /* Verde Oliva Vibrante */
+  --color-secondary: #8b5a2b;      /* Tierra / Madera de Pino */
+  --color-accent: #2e8b57;         /* Verde Mar / Hoja Fresca */
+  --color-bg-dark: #0f1c15;        /* Fondo Orgánico Ultra-Oscuro */
+  --color-text-light: #f5fcf9;     /* Texto Limpio Hueso */
+  --color-text-muted: #a3c4b7;     /* Texto Secundario / Comentario */
+  --color-error: #e07a5f;          /* Terracota para Errores */
+  --color-success: #81b29a;        /* Salvia para Aciertos/Favoritos */
+  
+  /* Sistema de Sombras y Gradientes */
+  --gradient-nature: linear-gradient(135deg, #1b4d3e 0%, #0f1c15 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  --border-glass: 1px solid rgba(255, 255, 255, 0.12);
+  --shadow-premium: 0 12px 32px 0 rgba(0, 0, 0, 0.37);
+  
+  /* Tipografía y Espaciado */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ==========================================================================
+   RESET & ESTILOS BASE
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-light);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.6;
+}
+
+/* Fondo dinámico animado con gradiente */
+.glass-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-nature);
+  z-index: -2;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(46, 139, 87, 0.15) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+  }
+}
+
+/* ==========================================================================
+   COMPONENTES DE ENCABEZADO Y PIE DE PÁGINA (MOBILE FIRST)
+   ========================================================================== */
+.app-header {
+  padding: 1.5rem;
+  text-align: center;
+  z-index: 10;
+  
+  & .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+    
+    & h1 {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    & .logo-icon {
+      font-size: 2rem;
+      animation: rotate-compass 10s infinite linear;
+    }
+  }
+  
+  & .tagline {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+}
+
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(15, 28, 21, 0.8);
+  backdrop-filter: blur(16px);
+  border-top: var(--border-glass);
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.75rem 0;
+  max-width: 600px;
+  margin: 0 auto;
+  
+  & .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+    
+    & .nav-icon {
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    &:hover {
+      color: var(--color-text-light);
+    }
+    
+    &.active {
+      color: var(--color-success);
+      font-weight: 700;
+      
+      & .nav-icon {
+        transform: scale(1.15);
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   ESTRUCTURA PRINCIPAL Y CONTENEDORES (GLASSMORPHISM)
+   ========================================================================== */
+.main-container {
+  flex: 1;
+  padding: 1rem 1rem 5rem 1rem; /* Margen inferior para evitar que el pie de página tape el contenido */
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Tarjeta base estilizada */
+.card {
+  background: var(--gradient-glass);
+  backdrop-filter: blur(12px);
+  border: var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-premium);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   FORMULARIOS Y VALIDACIÓN DE CONSTRAINTS (CSS Nesting)
+   ========================================================================== */
+.form-card {
+  & .card-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+  }
+  
+  & .card-subtitle {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+  & label {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  
+  & .hint {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+}
+
+/* Envoltura del input con icono */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  
+  & .input-icon {
+    position: absolute;
+    left: 1rem;
+    font-size: 1rem;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  
+  & input[type="text"] {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 2.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-md);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition-smooth);
+    
+    &:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--color-success);
+      box-shadow: 0 0 0 3px rgba(129, 178, 154, 0.25);
+    }
+  }
+}
+
+/* Estilos de error mediante la pseudo-clase moderna :user-invalid */
+input[type="text"]:user-invalid {
+  border-color: var(--color-error) !important;
+  background-color: rgba(224, 122, 95, 0.08);
+}
+
+/* Animación del mensaje de error */
+.error-msg {
+  display: none;
+  font-size: 0.8rem;
+  color: var(--color-error);
+  align-items: center;
+  gap: 0.25rem;
+  animation: slide-down 0.2s ease-out;
+  margin-top: 0.25rem;
+  
+  &.show {
+    display: flex;
+  }
+  
+  & .error-icon {
+    font-size: 0.9rem;
+  }
+}
+
+/* Divisor visual para métodos alternativos */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin: 0.5rem 0;
+  
+  &::before, &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  & span {
+    padding: 0 0.75rem;
+  }
+}
+
+/* Contenedor de Geolocalización */
+.geo-container {
+  & .status-msg {
+    font-size: 0.8rem;
+    text-align: center;
+    color: var(--color-success);
+    
+    &.error {
+      color: var(--color-error);
+    }
+  }
+}
+
+/* Estilos específicos para el control deslizante (range) */
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  & .slider-value {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-success);
+    font-size: 1.05rem;
+  }
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  outline: none;
+  margin: 10px 0;
+  
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-success);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    transition: var(--transition-smooth);
+    
+    &:hover {
+      transform: scale(1.25);
+      background: var(--color-accent);
+    }
+  }
+  
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-success);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    transition: var(--transition-smooth);
+    
+    &:hover {
+      transform: scale(1.25);
+      background: var(--color-accent);
+    }
+  }
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
+/* Contenedor de Alertas Globales */
+.alert-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(224, 122, 95, 0.15);
+  border: 1px solid var(--color-error);
+  padding: 0.85rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  animation: shake 0.4s ease;
+  
+  & .alert-text {
+    font-size: 0.85rem;
+    color: #ffffff;
+    font-weight: 500;
+  }
+}
+
+/* Botones con transiciones micro-animadas */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: var(--transition-smooth);
+  width: 100%;
+  border: none;
+  
+  &.btn-primary {
+    background: var(--color-success);
+    color: var(--color-bg-dark);
+    box-shadow: 0 4px 14px rgba(129, 178, 154, 0.4);
+    
+    & .btn-arrow {
+      transition: var(--transition-smooth);
+    }
+    
+    &:hover {
+      background: var(--color-primary-light);
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(129, 178, 154, 0.6);
+      
+      & .btn-arrow {
+        transform: translateX(4px);
+      }
+    }
+  }
+  
+  &.btn-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #ffffff;
+    }
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+/* ==========================================================================
+   RESULTADOS DE EXPLORACIÓN Y FAVORITOS (CSS Grid Responsivo)
+   ========================================================================== */
+.results-section, .favorites-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+  
+  & h2 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: #ffffff;
+    font-weight: 600;
+  }
+  
+  & .badge {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    
+    &.badge-success {
+      background: rgba(129, 178, 154, 0.2);
+      color: var(--color-success);
+    }
+  }
+}
+
+/* Carga / Spinner */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  
+  & .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top: 3px solid var(--color-success);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+/* Grid Responsivo para las Tarjetas */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Estructura de Tarjetas Individuales */
+.place-card {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.5);
+    border-color: rgba(129, 178, 154, 0.3);
+  }
+  
+  & .place-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    
+    & .place-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    & .place-overlay {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      z-index: 2;
+    }
+    
+    & .place-kinds-badge {
+      background: rgba(15, 28, 21, 0.8);
+      backdrop-filter: blur(4px);
+      color: var(--color-success);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.35rem 0.65rem;
+      border-radius: 20px;
+      border: 1px solid rgba(129, 178, 154, 0.3);
+    }
+  }
+  
+  &:hover .place-image {
+    transform: scale(1.05);
+  }
+  
+  & .place-info {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.5rem;
+    
+    & .place-name {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+    
+    & .place-distance-container {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      
+      & .geo-bullet {
+        font-size: 0.95rem;
+      }
+    }
+  }
+  
+  & .place-actions {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+/* Botón interactivo de Favoritos */
+.btn-fav {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-text-light);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.5rem 0.85rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  
+  & .heart-icon {
+    font-size: 0.9rem;
+    transition: transform 0.2s ease;
+  }
+  
+  &:hover {
+    background: rgba(224, 122, 95, 0.1);
+    border-color: var(--color-error);
+    color: var(--color-error);
+    
+    & .heart-icon {
+      transform: scale(1.2);
+    }
+  }
+  
+  &.is-favorite {
+    background: rgba(129, 178, 154, 0.15);
+    border-color: var(--color-success);
+    color: var(--color-success);
+    
+    & .heart-icon {
+      color: var(--color-success);
+    }
+    
+    &:hover {
+      background: rgba(224, 122, 95, 0.15);
+      border-color: var(--color-error);
+      color: var(--color-error);
+      
+      & .heart-icon {
+        color: var(--color-error);
+      }
+    }
+  }
+}
+
+/* Estado Vacío de Tarjetas */
+.empty-state-card {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  
+  & .empty-icon {
+    font-size: 3rem;
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+  }
+  
+  & h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  & p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    max-width: 300px;
+    margin-bottom: 0.5rem;
+  }
+  
+  & .btn {
+    width: auto;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ==========================================================================
+   ANIMACIONES MICRO-INTERACTIVAS
+   ========================================================================== */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-compass {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(15deg); }
+  50% { transform: rotate(-10deg); }
+  75% { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Localizador - Explorar Destinos</title>
+  <!-- Link a la hoja de estilos global -->
+  <link rel="stylesheet" href="./src/css/style.css">
+  <!-- Fuentes de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="explore-page">
+  <div class="glass-bg"></div>
+
+  <header class="app-header">
+    <div class="logo">
+      <span class="logo-icon">🧭</span>
+      <h1>El Localizador</h1>
+    </div>
+    <p class="tagline">Local Travel & Eco-Tourism Compass</p>
+  </header>
+
+  <main class="main-container">
+    <!-- Sección de Resultados de la Búsqueda Activa -->
+    <section class="results-section">
+      <div class="section-header">
+        <h2 id="search-title">Resultados de Búsqueda</h2>
+        <span id="results-count" class="badge">Cargando...</span>
+      </div>
+
+      <!-- Spinner / Skeleton de Carga -->
+      <div id="loader" class="loader-container">
+        <div class="spinner"></div>
+        <p>Buscando joyas naturales e históricas...</p>
+      </div>
+
+      <!-- Contenedor vacío donde se inyectarán las tarjetas usando DocumentFragment -->
+      <div id="places-grid" class="cards-grid"></div>
+
+      <!-- Estado vacío para cuando no hay resultados de búsqueda -->
+      <div id="empty-results" class="empty-state-card" style="display: none;">
+        <span class="empty-icon">🏞️</span>
+        <h3>No se encontraron lugares</h3>
+        <p>Prueba ampliando el radio de búsqueda o seleccionando otro destino ecológico.</p>
+        <a href="input.html" class="btn btn-primary">Nueva Búsqueda</a>
+      </div>
+    </section>
+
+    <!-- Sección de Favoritos Persistentes Offline -->
+    <section class="favorites-section">
+      <div class="section-header">
+        <h2>Tus Rutas Ecológicas Favoritas</h2>
+        <span id="favs-count" class="badge badge-success">0</span>
+      </div>
+
+      <!-- Contenedor vacío para los favoritos del LocalStorage -->
+      <div id="favorites-grid" class="cards-grid"></div>
+
+      <!-- Estado vacío para favoritos -->
+      <div id="empty-favorites" class="empty-state-card">
+        <span class="empty-icon">💚</span>
+        <h3>Tu brújula está vacía</h3>
+        <p>Guarda tus destinos favoritos presionando el corazón en las tarjetas para acceder a ellos sin conexión a internet.</p>
+        <a href="input.html" class="btn btn-secondary">Comenzar a Buscar</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================== -->
+  <!-- 🏛️ CAPA DE LA VISTA: PLANTILLAS HTML TEMPLATE -->
+  <!-- ========================================== -->
+  <template id="place-card-template">
+    <article class="place-card card">
+      <div class="place-image-wrapper">
+        <img class="place-image" src="" alt="" loading="lazy">
+        <div class="place-overlay">
+          <!-- Etiqueta de categorías -->
+          <span class="place-kinds-badge">Naturaleza</span>
+        </div>
+      </div>
+      
+      <div class="place-info">
+        <h3 class="place-name">Nombre del Lugar</h3>
+        <p class="place-distance-container">
+          <span class="geo-bullet">📍</span>
+          A <span class="place-distance">0.0</span> km de distancia
+        </p>
+        
+        <div class="place-actions">
+          <!-- Botón de acción para favoritos -->
+          <button type="button" class="btn-fav" aria-label="Guardar favorito">
+            <span class="heart-icon">🤍</span>
+            <span class="fav-text">Guardar</span>
+          </button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <footer class="app-footer">
+    <nav class="nav-bar">
+      <a href="input.html" class="nav-item">
+        <span class="nav-icon">🔍</span>
+        <span class="nav-label">Buscar</span>
+      </a>
+      <a href="index.html" class="nav-item active">
+        <span class="nav-icon">💚</span>
+        <span class="nav-label">Explorar</span>
+      </a>
+    </nav>
+  </footer>
+
+  <!-- Script modular de JS -->
+  <script type="module" src="./src/js/main.js"></script>
+</body>
+</html>
