@@ -18,6 +18,9 @@ jobs:
         run: |
           npm install
           npm run build
+        env:
+          VITE_GEOAPIFY_KEY: ${{ secrets.VITE_GEOAPIFY_KEY }}
+          VITE_UNSPLASH_KEY: ${{ secrets.VITE_UNSPLASH_KEY }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
