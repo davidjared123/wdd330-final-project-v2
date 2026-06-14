@@ -21,7 +21,8 @@ import {
 
 import { 
   renderPlacesGrid, 
-  toggleFavButtonState 
+  toggleFavButtonState,
+  translateKinds
 } from './dom.js';
 
 // ==========================================================================
@@ -220,8 +221,8 @@ function initExplorePage() {
       } else {
         if (resultsCount) resultsCount.textContent = `${places.length} lugares`;
         
-        // Renderizado optimizado pasando el callback del ViewModel para alternar favoritos
-        renderPlacesGrid(places, placesGrid, handleFavoriteToggle);
+        // Renderizado optimizado pasando el callback del ViewModel para alternar favoritos e info del modal
+        renderPlacesGrid(places, placesGrid, handleFavoriteToggle, handlePlaceClick);
       }
     } catch (error) {
       console.error('Error durante la búsqueda de destinos:', error);
@@ -294,8 +295,50 @@ function initExplorePage() {
         
         // Sincronizamos cualquier botón gemelo en la grilla de resultados superior
         syncSearchResultsBtn(clickedPlace.xid, false);
-      });
+      }, handlePlaceClick);
     }
+  }
+
+  /**
+   * Abre el modal flotante con los detalles y mapas de navegación (Google Maps).
+   */
+  function handlePlaceClick(place) {
+    const modal = document.getElementById('place-detail-modal');
+    if (!modal) return;
+
+    modal.querySelector('#modal-image').src = place.photoUrl;
+    modal.querySelector('#modal-image').alt = `Fotografía de ${place.name}`;
+    modal.querySelector('#modal-name').textContent = place.name;
+    modal.querySelector('#modal-kinds').textContent = translateKinds(place.kinds);
+    modal.querySelector('#modal-distance').textContent = `A ${place.distance} km de distancia`;
+
+    const mapsLink = modal.querySelector('#modal-maps-link');
+    if (mapsLink) {
+      mapsLink.href = `https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lon}`;
+    }
+
+    modal.showModal();
+  }
+
+  // Inicialización de escuchadores de cierre del modal flotante
+  const modal = document.getElementById('place-detail-modal');
+  const closeModalBtn = document.getElementById('close-modal-btn');
+  if (modal && closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+      modal.close();
+    });
+
+    // Cerrar el modal al hacer clic en el backdrop oscuro
+    modal.addEventListener('click', (e) => {
+      const rect = modal.getBoundingClientRect();
+      const isInDialog = (
+        rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX && e.clientX <= rect.left + rect.width
+      );
+      if (!isInDialog) {
+        modal.close();
+      }
+    });
   }
 
   /**

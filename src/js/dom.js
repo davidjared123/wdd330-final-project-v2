@@ -15,7 +15,7 @@ import { isFavorite } from './storage.js';
  * @param {string} kinds Cadena con categorías separadas por comas.
  * @returns {string} Etiqueta en español legible.
  */
-function translateKinds(kinds) {
+export function translateKinds(kinds) {
   if (!kinds) return 'Punto de Interés';
   
   const kindsLower = kinds.toLowerCase();
@@ -41,7 +41,7 @@ function translateKinds(kinds) {
  * @param {HTMLElement} gridElement Contenedor del DOM donde se inyectarán.
  * @param {Function} onFavoriteToggle Callback ViewModel para procesar clics en favoritos.
  */
-export function renderPlacesGrid(places, gridElement, onFavoriteToggle) {
+export function renderPlacesGrid(places, gridElement, onFavoriteToggle, onPlaceClick) {
   if (!gridElement) return;
   
   // Limpiamos el contenedor previo de forma segura sin concatenar HTML
@@ -97,6 +97,13 @@ export function renderPlacesGrid(places, gridElement, onFavoriteToggle) {
     favBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       onFavoriteToggle(place, favBtn);
+    });
+
+    // Escuchador para abrir modal de detalles al hacer click en la tarjeta
+    const cardContainer = cardClone.querySelector('.place-card');
+    cardContainer.addEventListener('click', (e) => {
+      if (e.target.closest('.btn-fav')) return;
+      if (onPlaceClick) onPlaceClick(place);
     });
     
     // Añadimos el nodo clonado al fragmento en memoria
